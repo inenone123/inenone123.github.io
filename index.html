@@ -3,132 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Site</title>
+    <title>稲の根 LMS</title>
     <style>
-        /* ▼ ここからデザイン指定（CSS） ▼ */
-        body {
-            background-color: #ffffff; /* 背景は白 */
-            color: #333333;            /* 文字は濃いグレー（読みやすく） */
-            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", sans-serif;
-            font-size: 14px;           /* 文字はあえて小さめがそれっぽい */
-            line-height: 1.6;
-            margin: 0;
-            padding: 10px;
+        /* --- UTOL風デザインの定義 --- */
+        :root {
+            --utol-blue: #6699cc; /* UTOLっぽい水色 */
+            --utol-bg-gray: #f0f2f5;
+            --utol-sidebar-bg: #dcebf7; /* サイドバーの薄い水色 */
+            --utol-header-height: 60px;
+            --utol-sidebar-width: 240px;
         }
 
-        /* リンクの色（あのサイトのような青色に） */
-        a {
-            color: #0044cc;
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* --- ヘッダー --- */
+        header {
+            height: var(--utol-header-height);
+            background-color: #fff;
+            border-bottom: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 300; /* 細めの文字 */
+            color: #555;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            color: var(--utol-blue);
+            font-weight: bold;
+        }
+
+        .header-right {
+            margin-left: auto;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* --- メインレイアウト --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden; /* スクロール制御 */
+        }
+
+        /* --- 左サイドバー --- */
+        aside {
+            width: var(--utol-sidebar-width);
+            background-color: var(--utol-sidebar-bg);
+            border-right: 1px solid #cce0f0;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            color: #444;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            border-left: 5px solid transparent;
+            transition: 0.2s;
             text-decoration: none;
         }
-        a:hover {
-            color: #ff0000; /* マウスを乗せると赤になる（王道！） */
+
+        .menu-item:hover {
+            background-color: rgba(255,255,255,0.5);
+            color: #000;
+        }
+
+        /* 選択されているメニューのデザイン */
+        .menu-item.active {
+            background-color: #9cbce0; /* 濃い水色 */
+            color: #fff;
+            border-left: 5px solid #4a7bb5;
+        }
+
+        .icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        /* --- コンテンツエリア --- */
+        main {
+            flex: 1;
+            padding: 0;
+            overflow-y: auto;
+            background-color: #fff;
+        }
+
+        .content-header {
+            background-color: #9cbce0;
+            padding: 10px 20px;
+            color: #fff;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .content-body {
+            padding: 20px 40px;
+        }
+
+        /* --- 表（テーブル）のデザイン --- */
+        .utol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .utol-table th {
+            border-bottom: 2px solid #ccc;
+            text-align: left;
+            padding: 10px;
+            background-color: #f9f9f9;
+            color: #555;
+        }
+
+        .utol-table td {
+            border-bottom: 1px solid #eee;
+            padding: 15px 10px;
+            vertical-align: top;
+        }
+
+        /* リンクのデザイン */
+        .link-title {
+            color: #0044cc;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .link-title:hover {
             text-decoration: underline;
         }
 
-        /* ページ全体を真ん中に寄せる */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        /* タイトルロゴ部分 */
-        h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-        .subtitle {
-            font-size: 12px;
+        .comment-text {
             color: #666;
-            margin-bottom: 30px;
+            font-size: 13px;
+            margin-top: 5px;
         }
 
-        /* メニューバー（シンプルな横並び） */
-        .menu {
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-            padding: 10px 0;
-            margin-bottom: 30px;
-            text-align: center; /* メニューは真ん中 */
+        /* ページ切り替え用 */
+        .page-section {
+            display: none; /* 最初は全部隠す */
         }
-        .menu a {
-            margin: 0 15px;
-            font-weight: bold;
-            display: inline-block;
+        .page-section.active {
+            display: block; /* activeがついたやつだけ表示 */
         }
 
-        /* 更新履歴エリア（ここがメイン！） */
-        .updates {
-            text-align: left;
-            margin-bottom: 50px;
-        }
-        .updates h2 {
-            font-size: 16px;
-            border-left: 5px solid #333; /* 左に黒い棒 */
-            padding-left: 10px;
-            margin-bottom: 15px;
-        }
-        .log-list {
-            list-style: none;
-            padding: 0;
-            font-family: "Courier New", monospace; /* 等幅フォントで日付を揃える */
-        }
-        .log-list li {
-            margin-bottom: 5px;
-        }
-        .date {
-            color: #666;
-            margin-right: 10px;
-        }
-
-        /* フッター */
-        footer {
-            margin-top: 50px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+        /* TOPに戻るボタン */
+        .top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #c0504d; /* あの赤い色 */
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             text-align: center;
+            line-height: 50px;
             font-size: 12px;
-            color: #999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <h1>SITE NAME</h1>
-        <div class="subtitle">ここにはサイトのサブタイトルや説明文が入ります。</div>
-
-        <div class="menu">
-            <a href="index.html">TOP</a>
-            <a href="novel.html">NOVEL</a>
-            <a href="art.html">GALLERY</a>
-            <a href="photo.html">TEXT</a>
-            <a href="#">LINK</a>
+    <header>
+        <div class="logo"><span>稲の根</span> System</div>
+        <div class="header-right">
+            Manual | Contacts | Help | Log out　ユーザー名: 管理者
         </div>
+    </header>
 
-        <div class="updates">
-            <h2>更新履歴</h2>
-            <ul class="log-list">
-                <li><span class="date">2024.02.10</span>サイトを開設しました。</li>
-                <li><span class="date">2024.02.10</span>小説「雨の日の珈琲店」をアップ。</li>
-                <li><span class="date">2024.02.09</span>ギャラリーにイラスト1点を追加。</li>
-            </ul>
-        </div>
+    <div class="main-container">
+        <aside>
+            <div class="menu-item active" onclick="showPage('home', this)">
+                <span class="icon">🏠</span> ホーム
+            </div>
+            <div class="menu-item" onclick="showPage('works', this)">
+                <span class="icon">📚</span> 作品一覧
+            </div>
+            <div class="menu-item" onclick="showPage('news', this)">
+                <span class="icon">📢</span> お知らせ
+            </div>
+        </aside>
 
-        <div style="text-align: center; margin-top: 40px;">
-            <p>展示している作品の無断転載・複製を禁じます。</p>
-            <br>
+        <main>
+            
+            <div id="home" class="page-section active">
+                <div class="content-header">
+                    <span>ホーム</span>
+                </div>
+                <div class="content-body">
+                    <h2>ようこそ、稲の根へ</h2>
+                    <p>左のメニューから「作品一覧」を選択して、閲覧したいコンテンツを選んでください。</p>
+                    <div style="background:#fff8dc; padding:15px; border:1px solid #e0d0b0; margin-top:20px;">
+                        <strong>【未読のお知らせ】</strong><br>
+                        2024.xx.xx　サイトシステムを移行しました。
+                    </div>
+                </div>
             </div>
 
-        <footer>
-            Created by YourName
-        </footer>
+            <div id="works" class="page-section">
+                <div class="content-header">
+                    <span>作品一覧 (2024年度)</span>
+                    <span>公開期間: 無期限</span>
+                </div>
+                <div class="content-body">
+                    
+                    <p style="color:#666; font-size:12px; margin-bottom:20px;">
+                        作品の無断転載・配布を禁止します
+                    </p>
 
+                    <table class="utol-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">作品タイトル</th>
+                                <th style="width: 40%;">コメント</th>
+                                <th style="width: 20%;">公開日</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="https://note.com/xxxxx" target="_blank" class="link-title">
+                                        📄 第一章：雨の日の出会い.pdf
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="comment-text">長編小説の第一話です。noteで公開中。</div>
+                                </td>
+                                <td>2024/02/10</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <a href="https://pixiv.net/xxxxx" target="_blank" class="link-title">
+                                        🎨 水彩練習01.jpg
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="comment-text">pixivにアップした風景画。</div>
+                                </td>
+                                <td>2024/02/09</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <a href="#" class="link-title">
+                                        📝 旅行記_鎌倉編.doc
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="comment-text">ブログ記事へのリンク。</div>
+                                </td>
+                                <td>2024/01/20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div id="news" class="page-section">
+                <div class="content-header">
+                    <span>提出状況・お知らせ</span>
+                </div>
+                <div class="content-body">
+                    <table class="utol-table">
+                        <tr>
+                            <th>件名</th>
+                            <th>ステータス</th>
+                            <th>日付</th>
+                        </tr>
+                        <tr>
+                            <td>サイト開設のお知らせ</td>
+                            <td><span style="color:red">重要</span></td>
+                            <td>2024/02/01</td>
+                        </tr>
+                        <tr>
+                            <td>Twitter更新しました</td>
+                            <td>済</td>
+                            <td>2024/01/25</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </main>
     </div>
+
+    <div class="top-btn" onclick="scrollToTop()">Top</div>
+
+    <script>
+        // メニューを切り替える魔法のスクリプト
+        function showPage(pageId, element) {
+            // 1. すべてのページを隠す
+            document.querySelectorAll('.page-section').forEach(div => {
+                div.classList.remove('active');
+            });
+            // 2. 選ばれたページだけ表示する
+            document.getElementById(pageId).classList.add('active');
+
+            // 3. メニューの色を変える
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        function scrollToTop() {
+            document.querySelector('main').scrollTop = 0;
+        }
+    </script>
 
 </body>
 </html>
