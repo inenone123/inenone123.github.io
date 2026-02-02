@@ -3,72 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Creative Site</title>
+    <title>My Site</title>
     <style>
-        /* ここはデザイン（見た目）を指定する場所です */
+        /* ▼ ここからデザイン指定（CSS） ▼ */
         body {
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9; /* 背景色 */
-            color: #333; /* 文字色 */
+            background-color: #ffffff; /* 背景は白 */
+            color: #333333;            /* 文字は濃いグレー（読みやすく） */
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", sans-serif;
+            font-size: 14px;           /* 文字はあえて小さめがそれっぽい */
             line-height: 1.6;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            background-color: #444;
+            margin: 0;
             padding: 10px;
-            text-align: center;
         }
-        nav a {
-            color: #fff;
+
+        /* リンクの色（あのサイトのような青色に） */
+        a {
+            color: #0044cc;
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
         }
-        nav a:hover {
-            color: #ddd; /* マウスを乗せた時の色 */
+        a:hover {
+            color: #ff0000; /* マウスを乗せると赤になる（王道！） */
+            text-decoration: underline;
         }
+
+        /* ページ全体を真ん中に寄せる */
         .container {
             max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            padding: 20px 0;
         }
-        h1 { margin: 0; }
-        .intro { text-align: center; margin-bottom: 40px; }
+
+        /* タイトルロゴ部分 */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* メニューバー（シンプルな横並び） */
+        .menu {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            text-align: center; /* メニューは真ん中 */
+        }
+        .menu a {
+            margin: 0 15px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* 更新履歴エリア（ここがメイン！） */
+        .updates {
+            text-align: left;
+            margin-bottom: 50px;
+        }
+        .updates h2 {
+            font-size: 16px;
+            border-left: 5px solid #333; /* 左に黒い棒 */
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
+        .log-list {
+            list-style: none;
+            padding: 0;
+            font-family: "Courier New", monospace; /* 等幅フォントで日付を揃える */
+        }
+        .log-list li {
+            margin-bottom: 5px;
+        }
+        .date {
+            color: #666;
+            margin-right: 10px;
+        }
+
+        /* フッター */
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to My World</h1>
-    </header>
-
-    <nav>
-        <a href="index.html">ホーム</a>
-        <a href="novel.html">小説 (Novel)</a>
-        <a href="photo.html">写真・感想 (Photo & Note)</a>
-        <a href="art.html">イラスト (Art)</a>
-    </nav>
-
     <div class="container">
-        <div class="intro">
-            <h2>ようこそ</h2>
-            <p>ここは、私の創作活動をまとめたウェブサイトです。</p>
-            <p>小説を書いたり、旅先での写真を載せたり、<br>練習中のイラストを公開しています。</p>
-        </div>
         
-        <h3>News</h3>
-        <ul>
-            <li>2024.xx.xx サイトを開設しました。</li>
-        </ul>
+        <h1>SITE NAME</h1>
+        <div class="subtitle">ここにはサイトのサブタイトルや説明文が入ります。</div>
+
+        <div class="menu">
+            <a href="index.html">TOP</a>
+            <a href="novel.html">NOVEL</a>
+            <a href="art.html">GALLERY</a>
+            <a href="photo.html">TEXT</a>
+            <a href="#">LINK</a>
+        </div>
+
+        <div class="updates">
+            <h2>更新履歴</h2>
+            <ul class="log-list">
+                <li><span class="date">2024.02.10</span>サイトを開設しました。</li>
+                <li><span class="date">2024.02.10</span>小説「雨の日の珈琲店」をアップ。</li>
+                <li><span class="date">2024.02.09</span>ギャラリーにイラスト1点を追加。</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <p>展示している作品の無断転載・複製を禁じます。</p>
+            <br>
+            </div>
+
+        <footer>
+            Created by YourName
+        </footer>
+
     </div>
 
 </body>
