@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イラスト - My Creative Site</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover { color: #ddd; }
+        
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 画像のためのデザイン */
+        .art-gallery {
+            text-align: center; /* 画像を真ん中に寄せる */
+        }
+        .art-item {
+            margin-bottom: 40px; /* 画像ごとの隙間 */
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        /* 画像がスマホからはみ出さないようにする魔法のコード */
+        .art-image {
+            max-width: 100%; 
+            height: auto;
+            border-radius: 4px; /* 角を少し丸くする */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影をつけて浮き上がらせる */
+        }
+        .art-caption {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Art Gallery</h1>
+        <p>イラスト練習記録</p>
+    </header>
+
+    <nav>
+        <a href="index.html">ホーム</a>
+        <a href="novel.html">小説</a>
+        <a href="photo.html">写真・感想</a>
+        <a href="art.html">イラスト</a>
+    </nav>
+
+    <div class="container">
+        <div class="art-gallery">
+
+            <div class="art-item">
+                <img src="art01.jpg" alt="練習中のイラスト" class="art-image">
+                <p class="art-caption">2024.xx.xx 作成 / 模写練習</p>
+            </div>
+
+            </div>
+    </div>
+
+</body>
+</html>
