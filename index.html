@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>稲の根 LMS</title>
+    <title>稲の根</title>
     <style>
         /* --- UTOL風デザインの定義 --- */
         :root {
             --utol-blue: #6699cc; /* UTOLっぽい水色 */
             --utol-bg-gray: #f0f2f5;
             --utol-sidebar-bg: #dcebf7; /* サイドバーの薄い水色 */
+            --utol-sidebar-active: #9cbce0; /* 選択中の濃い水色 */
+            --utol-text-color: #555;
             --utol-header-height: 60px;
             --utol-sidebar-width: 240px;
         }
@@ -29,7 +31,7 @@
         header {
             height: var(--utol-header-height);
             background-color: #fff;
-            border-bottom: 2px solid #ccc;
+            border-bottom: 2px solid #ccc; /* 下線 */
             display: flex;
             align-items: center;
             padding: 0 20px;
@@ -38,27 +40,33 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 300; /* 細めの文字 */
-            color: #555;
-            letter-spacing: 1px;
+            font-size: 28px; /* 少し大きくしました */
+            font-weight: 300;
+            color: #333;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        /* ロゴの左にある青い線の装飾 */
+        .logo::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background-color: var(--utol-blue);
+            margin-right: 15px;
+            border-radius: 2px;
         }
         .logo span {
             color: var(--utol-blue);
             font-weight: bold;
         }
 
-        .header-right {
-            margin-left: auto;
-            font-size: 12px;
-            color: #666;
-        }
-
         /* --- メインレイアウト --- */
         .main-container {
             display: flex;
             flex: 1;
-            overflow: hidden; /* スクロール制御 */
+            overflow: hidden;
         }
 
         /* --- 左サイドバー --- */
@@ -66,38 +74,43 @@
             width: var(--utol-sidebar-width);
             background-color: var(--utol-sidebar-bg);
             border-right: 1px solid #cce0f0;
-            padding-top: 10px;
+            padding-top: 0; /* 隙間をなくしてピッチリさせる */
             display: flex;
             flex-direction: column;
         }
 
         .menu-item {
-            padding: 15px 20px;
+            padding: 18px 20px; /* 高さを出して押しやすく */
             cursor: pointer;
             color: #444;
-            font-weight: bold;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            border-left: 5px solid transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.5); /* 薄い区切り線 */
             transition: 0.2s;
-            text-decoration: none;
+            font-size: 15px;
         }
 
         .menu-item:hover {
-            background-color: rgba(255,255,255,0.5);
-            color: #000;
+            background-color: rgba(255,255,255,0.6);
         }
 
         /* 選択されているメニューのデザイン */
         .menu-item.active {
-            background-color: #9cbce0; /* 濃い水色 */
+            background-color: var(--utol-sidebar-active);
             color: #fff;
-            border-left: 5px solid #4a7bb5;
         }
-
-        .icon {
-            margin-right: 10px;
-            font-size: 1.2em;
+        
+        /* アイコン（SVG）の設定 */
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            fill: none;           /* 中塗りはなし */
+            stroke: currentColor; /* 文字色と同じ色にする */
+            stroke-width: 2;      /* 線の太さ */
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         /* --- コンテンツエリア --- */
@@ -109,38 +122,46 @@
         }
 
         .content-header {
-            background-color: #9cbce0;
-            padding: 10px 20px;
+            background-color: var(--utol-sidebar-active);
+            padding: 12px 25px;
             color: #fff;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
+            font-size: 15px;
         }
 
         .content-body {
-            padding: 20px 40px;
+            padding: 30px 40px;
         }
 
         /* --- 表（テーブル）のデザイン --- */
         .utol-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 14px;
+            border: 1px solid #ddd; /* 外枠 */
         }
 
         .utol-table th {
             border-bottom: 2px solid #ccc;
             text-align: left;
-            padding: 10px;
-            background-color: #f9f9f9;
+            padding: 12px 15px;
+            background-color: #f7f7f7;
             color: #555;
+            font-weight: bold;
         }
 
         .utol-table td {
             border-bottom: 1px solid #eee;
-            padding: 15px 10px;
+            padding: 15px;
             vertical-align: top;
+        }
+        
+        /* 1行ごとに背景色を変える（シマシマ） */
+        .utol-table tr:nth-child(even) {
+            background-color: #fdfdfd;
         }
 
         /* リンクのデザイン */
@@ -162,27 +183,20 @@
 
         /* ページ切り替え用 */
         .page-section {
-            display: none; /* 最初は全部隠す */
+            display: none;
         }
         .page-section.active {
-            display: block; /* activeがついたやつだけ表示 */
+            display: block;
         }
-
-        /* TOPに戻るボタン */
-        .top-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #c0504d; /* あの赤い色 */
-            color: #fff;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 50px;
-            font-size: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            cursor: pointer;
+        
+        /* 重要ラベル */
+        .label-important {
+            color: #d93025;
+            font-weight: bold;
+            border: 1px solid #d93025;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
         }
 
     </style>
@@ -190,22 +204,33 @@
 <body>
 
     <header>
-        <div class="logo"><span>稲の根</span> System</div>
-        <div class="header-right">
-            Manual | Contacts | Help | Log out　ユーザー名: 管理者
-        </div>
+        <div class="logo"><span>稲の根</span></div>
     </header>
 
     <div class="main-container">
         <aside>
             <div class="menu-item active" onclick="showPage('home', this)">
-                <span class="icon">🏠</span> ホーム
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                ホーム
             </div>
+            
             <div class="menu-item" onclick="showPage('works', this)">
-                <span class="icon">📚</span> 作品一覧
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                作品一覧
             </div>
+
             <div class="menu-item" onclick="showPage('news', this)">
-                <span class="icon">📢</span> お知らせ
+                <svg class="menu-icon" viewBox="0 0 24 24">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                お知らせ
             </div>
         </aside>
 
@@ -216,9 +241,12 @@
                     <span>ホーム</span>
                 </div>
                 <div class="content-body">
-                    <h2>ようこそ、稲の根へ</h2>
+                    <h2 style="border-left: 5px solid var(--utol-blue); padding-left: 15px; margin-bottom: 20px;">
+                        ようこそ、稲の根へ
+                    </h2>
                     <p>左のメニューから「作品一覧」を選択して、閲覧したいコンテンツを選んでください。</p>
-                    <div style="background:#fff8dc; padding:15px; border:1px solid #e0d0b0; margin-top:20px;">
+                    
+                    <div style="background:#fff4e5; padding:20px; border-left:4px solid #ff9800; margin-top:30px;">
                         <strong>【未読のお知らせ】</strong><br>
                         2024.xx.xx　サイトシステムを移行しました。
                     </div>
@@ -228,19 +256,19 @@
             <div id="works" class="page-section">
                 <div class="content-header">
                     <span>作品一覧 (2024年度)</span>
-                    <span>公開期間: 無期限</span>
+                    <span style="font-weight:normal; font-size: 13px;">公開期間: 無期限</span>
                 </div>
                 <div class="content-body">
                     
-                    <p style="color:#666; font-size:12px; margin-bottom:20px;">
-                        作品の無断転載・配布を禁止します
+                    <p style="color:#666; font-size:12px; margin-bottom:15px; text-align:right;">
+                        ※作品の無断転載・配布を禁止します
                     </p>
 
                     <table class="utol-table">
                         <thead>
                             <tr>
-                                <th style="width: 40%;">作品タイトル</th>
-                                <th style="width: 40%;">コメント</th>
+                                <th style="width: 45%;">作品タイトル</th>
+                                <th style="width: 35%;">コメント</th>
                                 <th style="width: 20%;">公開日</th>
                             </tr>
                         </thead>
@@ -268,15 +296,15 @@
                                 </td>
                                 <td>2024/02/09</td>
                             </tr>
-
+                            
                             <tr>
                                 <td>
                                     <a href="#" class="link-title">
-                                        📝 旅行記_鎌倉編.doc
+                                        📝 読書感想文.txt
                                     </a>
                                 </td>
                                 <td>
-                                    <div class="comment-text">ブログ記事へのリンク。</div>
+                                    <div class="comment-text">最近読んだ本のメモ。</div>
                                 </td>
                                 <td>2024/01/20</td>
                             </tr>
@@ -299,12 +327,12 @@
                         </tr>
                         <tr>
                             <td>サイト開設のお知らせ</td>
-                            <td><span style="color:red">重要</span></td>
+                            <td><span class="label-important">重要</span></td>
                             <td>2024/02/01</td>
                         </tr>
                         <tr>
                             <td>Twitter更新しました</td>
-                            <td>済</td>
+                            <td><span>済</span></td>
                             <td>2024/01/25</td>
                         </tr>
                     </table>
@@ -314,27 +342,17 @@
         </main>
     </div>
 
-    <div class="top-btn" onclick="scrollToTop()">Top</div>
-
     <script>
-        // メニューを切り替える魔法のスクリプト
         function showPage(pageId, element) {
-            // 1. すべてのページを隠す
             document.querySelectorAll('.page-section').forEach(div => {
                 div.classList.remove('active');
             });
-            // 2. 選ばれたページだけ表示する
             document.getElementById(pageId).classList.add('active');
 
-            // 3. メニューの色を変える
             document.querySelectorAll('.menu-item').forEach(item => {
                 item.classList.remove('active');
             });
             element.classList.add('active');
-        }
-
-        function scrollToTop() {
-            document.querySelector('main').scrollTop = 0;
         }
     </script>
 
