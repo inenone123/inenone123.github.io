@@ -7,11 +7,10 @@
     <style>
         /* --- UTOL風デザインの定義 --- */
         :root {
-            --utol-blue: #6699cc; /* UTOLっぽい水色 */
+            --utol-blue: #6699cc;
             --utol-bg-gray: #f0f2f5;
-            --utol-sidebar-bg: #dcebf7; /* サイドバーの薄い水色 */
-            --utol-sidebar-active: #9cbce0; /* 選択中の濃い水色 */
-            --utol-text-color: #555;
+            --utol-sidebar-bg: #dcebf7;
+            --utol-sidebar-active: #9cbce0;
             --utol-header-height: 60px;
             --utol-sidebar-width: 240px;
         }
@@ -31,7 +30,7 @@
         header {
             height: var(--utol-header-height);
             background-color: #fff;
-            border-bottom: 2px solid #ccc; /* 下線 */
+            border-bottom: 2px solid #ccc;
             display: flex;
             align-items: center;
             padding: 0 20px;
@@ -40,14 +39,13 @@
         }
 
         .logo {
-            font-size: 28px; /* 少し大きくしました */
+            font-size: 28px;
             font-weight: 300;
             color: #333;
             letter-spacing: 2px;
             display: flex;
             align-items: center;
         }
-        /* ロゴの左にある青い線の装飾 */
         .logo::before {
             content: "";
             display: inline-block;
@@ -74,19 +72,19 @@
             width: var(--utol-sidebar-width);
             background-color: var(--utol-sidebar-bg);
             border-right: 1px solid #cce0f0;
-            padding-top: 0; /* 隙間をなくしてピッチリさせる */
+            padding-top: 0;
             display: flex;
             flex-direction: column;
         }
 
         .menu-item {
-            padding: 18px 20px; /* 高さを出して押しやすく */
+            padding: 18px 20px;
             cursor: pointer;
             color: #444;
             font-weight: 500;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.5); /* 薄い区切り線 */
+            border-bottom: 1px solid rgba(255,255,255,0.5);
             transition: 0.2s;
             font-size: 15px;
         }
@@ -95,20 +93,18 @@
             background-color: rgba(255,255,255,0.6);
         }
 
-        /* 選択されているメニューのデザイン */
         .menu-item.active {
             background-color: var(--utol-sidebar-active);
             color: #fff;
         }
         
-        /* アイコン（SVG）の設定 */
         .menu-icon {
             width: 24px;
             height: 24px;
             margin-right: 15px;
-            fill: none;           /* 中塗りはなし */
-            stroke: currentColor; /* 文字色と同じ色にする */
-            stroke-width: 2;      /* 線の太さ */
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -135,13 +131,13 @@
             padding: 30px 40px;
         }
 
-        /* --- 表（テーブル）のデザイン --- */
+        /* --- 表のデザイン --- */
         .utol-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
             font-size: 14px;
-            border: 1px solid #ddd; /* 外枠 */
+            border: 1px solid #ddd;
         }
 
         .utol-table th {
@@ -159,7 +155,6 @@
             vertical-align: top;
         }
         
-        /* 1行ごとに背景色を変える（シマシマ） */
         .utol-table tr:nth-child(even) {
             background-color: #fdfdfd;
         }
@@ -189,16 +184,16 @@
             display: block;
         }
         
-        /* 重要ラベル */
-        .label-important {
-            color: #d93025;
+        /* ラベル */
+        .label-new {
+            color: var(--utol-blue);
             font-weight: bold;
-            border: 1px solid #d93025;
+            border: 1px solid var(--utol-blue);
             padding: 2px 6px;
             border-radius: 4px;
             font-size: 11px;
+            margin-right: 5px;
         }
-
     </style>
 </head>
 <body>
@@ -246,17 +241,20 @@
                     </h2>
                     <p>左のメニューから「作品一覧」を選択して、閲覧したいコンテンツを選んでください。</p>
                     
-                    <div style="background:#fff4e5; padding:20px; border-left:4px solid #ff9800; margin-top:30px;">
-                        <strong>【未読のお知らせ】</strong><br>
-                        2024.xx.xx　サイトシステムを移行しました。
+                    <div style="background:#f0f7ff; padding:20px; border-left:4px solid var(--utol-blue); margin-top:30px;">
+                        <strong style="color:var(--utol-blue);">【新しいお知らせ】</strong>
+                        <div style="margin-top:10px; font-size:14px;">
+                            <span style="color:#666; font-size:12px; margin-right:10px;">2024.02.01</span>
+                            サイトを開設しました。
+                        </div>
                     </div>
+
                 </div>
             </div>
 
             <div id="works" class="page-section">
                 <div class="content-header">
-                    <span>作品一覧 (2024年度)</span>
-                    <span style="font-weight:normal; font-size: 13px;">公開期間: 無期限</span>
+                    <span>作品一覧</span>
                 </div>
                 <div class="content-body">
                     
@@ -316,7 +314,7 @@
 
             <div id="news" class="page-section">
                 <div class="content-header">
-                    <span>提出状況・お知らせ</span>
+                    <span>お知らせ</span>
                 </div>
                 <div class="content-body">
                     <table class="utol-table">
@@ -327,12 +325,12 @@
                         </tr>
                         <tr>
                             <td>サイト開設のお知らせ</td>
-                            <td><span class="label-important">重要</span></td>
+                            <td><span class="label-new">NEW</span></td>
                             <td>2024/02/01</td>
                         </tr>
                         <tr>
                             <td>Twitter更新しました</td>
-                            <td><span>済</span></td>
+                            <td><span>-</span></td>
                             <td>2024/01/25</td>
                         </tr>
                     </table>
