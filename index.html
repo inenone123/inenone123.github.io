@@ -277,6 +277,53 @@
             font-size: 14px;
             display: block; /* 改行させる */
         }
+        /* ▼▼ マンガ機能用の追加デザイン ▼▼ */
+        
+        /* マンガメニュー（話数一覧）のヘッダー */
+        .manga-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        /* タイトル画像（看板）のサイズ調整 */
+        .manga-banner {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        /* 戻るボタンのデザイン */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #6699cc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        /* マンガビューワー（画像表示エリア） */
+        .manga-viewer-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: #333; /* 読む時は背景を暗くする */
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* マンガの原稿画像 */
+        .manga-page {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -423,7 +470,11 @@
 
                             <tr>
                                 <td>
-                                    <a href="#" class="link-title">漫画</a>
+                                    <div onclick="openMangaMenu()" style="cursor:pointer;">
+                                        <img src="https://placehold.jp/300x100.png?text=Coming+Soon" alt="作品タイトル画像" class="manga-banner" style="width:200px;">
+                                        
+                                        <span class="link-title" style="display:block;">作品タイトル（仮）</span>
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="comment-text">稚拙ですが毎日更新中</div>
@@ -460,7 +511,70 @@
                     </table>
                 </div>
             </div>
+<div id="manga-menu" class="page-section">
+                <div class="content-header">
+                    <span>作品詳細・話数一覧</span>
+                </div>
+                <div class="content-body">
+                    <div class="back-link" onclick="showPage('works', document.querySelector('.menu-item[onclick*=\'works\']'))">
+                        ← 作品一覧に戻る
+                    </div>
 
+                    <div class="manga-header">
+                        <h1>作品タイトル（仮）</h1>
+                        <p>あらすじ：ここに漫画のあらすじや説明文を書きます。</p>
+                    </div>
+
+                    <table class="utol-table">
+                        <thead>
+                            <tr>
+                                <th>エピソード</th>
+                                <th>タイトル</th>
+                                <th>更新日</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>第1話</td>
+                                <td>
+                                    <a href="javascript:void(0)" onclick="openChapter(1)" class="link-title">
+                                        冒険の始まり
+                                    </a>
+                                </td>
+                                <td>2026/02/04</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>第2話</td>
+                                <td>
+                                    <a href="javascript:void(0)" onclick="alert('準備中です！')" class="link-title">
+                                        （準備中）
+                                    </a>
+                                </td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="manga-viewer-1" class="page-section" style="padding:0;">
+                <div style="background:#222; padding:10px; color:#fff; display:flex; justify-content:space-between; align-items:center;">
+                    <button onclick="backToMangaMenu()" style="cursor:pointer;">一覧に戻る</button>
+                    <span>第1話：冒険の始まり</span>
+                    <span>1 / 1</span>
+                </div>
+
+                <div class="manga-viewer-container">
+                    <img src="manga1_01.jpg" alt="1ページ目" class="manga-page"><br>
+                    <img src="manga1_02.jpg" alt="2ページ目" class="manga-page"><br>
+                    <img src="manga1_03.jpg" alt="3ページ目" class="manga-page"><br>
+                    
+                    <div style="color:#fff; margin-top:50px;">
+                        <button onclick="backToMangaMenu()" style="padding:10px 20px; cursor:pointer;">読み終わる（一覧へ）</button>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -475,6 +589,35 @@
                 item.classList.remove('active');
             });
             element.classList.add('active');
+        }
+        // 既存の showPage 関数の下に追加してください
+
+        // 漫画メニュー（話数一覧）を開く
+        function openMangaMenu() {
+            // 全ページを隠す
+            document.querySelectorAll('.page-section').forEach(div => {
+                div.classList.remove('active');
+            });
+            // 漫画メニューだけ表示
+            document.getElementById('manga-menu').classList.add('active');
+            // メニューのハイライトは「作品一覧」のままにする
+        }
+
+        // 指定した話数のビューワーを開く
+        function openChapter(num) {
+            // 全ページを隠す
+            document.querySelectorAll('.page-section').forEach(div => {
+                div.classList.remove('active');
+            });
+            // 指定した話数のビューワーを表示（IDは manga-viewer-1 等）
+            document.getElementById('manga-viewer-' + num).classList.add('active');
+            // 読むモードなのでページの一番上へ
+            window.scrollTo(0, 0);
+        }
+
+        // ビューワーから話数一覧に戻る
+        function backToMangaMenu() {
+            openMangaMenu();
         }
     </script>
 
