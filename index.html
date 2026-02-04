@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>稲の根</title>
     <style>
-        /* --- UTOL風デザインの定義 --- */
+        /* --- デザイン設定 (変更不要) --- */
         :root {
             --utol-blue: #6699cc;
             --utol-bg-gray: #f0f2f5;
@@ -26,7 +26,7 @@
             height: 100vh;
         }
 
-        /* --- ヘッダー --- */
+        /* ヘッダー */
         header {
             height: var(--utol-header-height);
             background-color: #fff;
@@ -60,14 +60,14 @@
             font-weight: bold;
         }
 
-        /* --- メインレイアウト --- */
+        /* メインレイアウト */
         .main-container {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
-        /* --- 左サイドバー --- */
+        /* 左サイドバー */
         aside {
             width: var(--utol-sidebar-width);
             background-color: var(--utol-sidebar-bg);
@@ -109,7 +109,7 @@
             stroke-linejoin: round;
         }
 
-        /* --- コンテンツエリア --- */
+        /* コンテンツエリア */
         main {
             flex: 1;
             padding: 0;
@@ -131,7 +131,7 @@
             padding: 30px 40px;
         }
 
-        /* --- リンクボタンのデザイン（新機能） --- */
+        /* プロフィールリンクボタン */
         .profile-links {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -174,7 +174,7 @@
             color: #888;
         }
 
-        /* --- 表のデザイン --- */
+        /* テーブルデザイン */
         .utol-table {
             width: 100%;
             border-collapse: collapse;
@@ -334,8 +334,8 @@
                     <div style="background:#f0f7ff; padding:20px; border-left:4px solid var(--utol-blue); margin-top:30px;">
                         <strong style="color:var(--utol-blue);">【新しいお知らせ】</strong>
                         <div style="margin-top:10px; font-size:14px;">
-                            <span style="color:#666; font-size:12px; margin-right:10px;">2024.02.01</span>
-                            サイトを開設しました。
+                            <span style="color:#666; font-size:12px; margin-right:10px;">2024.02.04</span>
+                            サイトを正式オープンしました。
                         </div>
                     </div>
 
@@ -357,7 +357,7 @@
                             <tr>
                                 <th style="width: 45%;">作品タイトル</th>
                                 <th style="width: 35%;">コメント</th>
-                                <th style="width: 20%;">公開日</th>
+                                <th style="width: 20%;">更新日</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -385,17 +385,6 @@
                                 <td>2024/02/09</td>
                             </tr>
                             
-                            <tr>
-                                <td>
-                                    <a href="#" class="link-title">
-                                        📝 読書感想文.txt
-                                    </a>
-                                </td>
-                                <td>
-                                    <div class="comment-text">最近読んだ本のメモ。</div>
-                                </td>
-                                <td>2024/01/20</td>
-                            </tr>
                         </tbody>
                     </table>
 
